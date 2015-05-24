@@ -65,10 +65,11 @@ public class MainActivity extends Activity implements MediaPlayerControl{
         getSongList();
         SongAdapter songAdt = new SongAdapter(this, songList);
         songView.setAdapter(songAdt);
+        controller = new MusicController(this);
         setController();
-        ListView listView = (ListView) findViewById(android.R.id.list);
+//        ListView listView = (ListView) findViewById(android.R.id.list);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.attachToListView(listView);
+        fab.attachToListView(songView);
 
     }
     //connect to the service
@@ -225,18 +226,18 @@ public class MainActivity extends Activity implements MediaPlayerControl{
 
     }
 
-//    @Override
-//    public void onBackPressed() {
-//
-//        Intent i=new Intent();
-//
-//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//
-//        startActivity(i);
-//
-//        super.onBackPressed();
-//
-//    }
+    @Override
+    public void onBackPressed() {
+
+        Intent i=new Intent();
+
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(i);
+
+        super.onBackPressed();
+
+    }
 
     @Override
     public int getDuration() {
