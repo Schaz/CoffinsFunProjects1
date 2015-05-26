@@ -1,0 +1,5 @@
+Aong: getting music title and artist
+MusicController: MusicController/MediaController
+SongAdapter: Putting things from Aong into action
+music: music services; play, shuffle and things
+Main Activity: well, the main activity- everything is here, the listview declaration, and such things 
