@@ -2,7 +2,7 @@ package com.example.dell.myapplication;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.os.IBinder;
 import android.content.ComponentName;
@@ -21,7 +22,9 @@ import android.content.ServiceConnection;
 import android.widget.MediaController.MediaPlayerControl;
 
 import com.example.dell.myapplication.music.MusicBinder;
-import com.melnykov.fab.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 public class MainActivity extends Activity implements MediaPlayerControl{
 
@@ -67,9 +70,45 @@ public class MainActivity extends Activity implements MediaPlayerControl{
         songView.setAdapter(songAdt);
         setController();
         ListView listView = (ListView) findViewById(android.R.id.list);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.attachToListView(listView);
+        ImageView fabiconmain = new ImageView(this);
+        Drawable mainfabicon = getResources().getDrawable(R.drawable.button_action_touch);
+        fabiconmain.setImageDrawable(mainfabicon);
+        final FloatingActionButton fab = new FloatingActionButton.Builder(this)
+                .setContentView(fabiconmain)
+                .build();
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+        ImageView shufflebuttonic = new ImageView(this);
+        Drawable ic_shuffle = getResources().getDrawable(R.drawable.ic_action_name);
+        shufflebuttonic.setImageDrawable(ic_shuffle);
+        SubActionButton shuffle_button = itemBuilder.setContentView(shufflebuttonic).build();
+        ImageView end_button_ic = new ImageView(this);
+        Drawable ic_end = getResources().getDrawable(R.drawable.end);
+        end_button_ic.setImageDrawable(ic_end);
+        SubActionButton end_button = itemBuilder.setContentView(end_button_ic).build();
+        FloatingActionMenu floatingActionMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(shuffle_button)
+                .addSubActionView(end_button)
+                .attachTo(fab)
+                .build();
+        shuffle_button.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        musicSrv.setShuffle();
 
+                    }
+                }
+        );
+        end_button.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        stopService(playIntent);
+                        musicSrv=null;
+                        System.exit(0);
+                    }
+                }
+        );
     }
     //connect to the service
     private ServiceConnection musicConnection = new ServiceConnection(){
@@ -123,23 +162,23 @@ public class MainActivity extends Activity implements MediaPlayerControl{
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()) {
-            case R.id.action_shuffle:
-                musicSrv.setShuffle();
-                break;
-            case R.id.action_end:
-                stopService(playIntent);
-                musicSrv=null;
-                System.exit(0);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        switch (item.getItemId()) {
+//            case R.id.action_shuffle:
+//                musicSrv.setShuffle();
+//                break;
+//            case R.id.action_end:
+//                stopService(playIntent);
+//                musicSrv=null;
+//                System.exit(0);
+//                break;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
     @Override
     protected void onDestroy() {
         stopService(playIntent);
