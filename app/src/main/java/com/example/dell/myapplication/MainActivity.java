@@ -267,13 +267,13 @@ public class MainActivity extends Activity implements MediaPlayerControl{
     @Override
     public void onBackPressed() {
 
-        Intent i=new Intent();
+//        Intent i=new Intent();
 
-    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        startActivity(i);
-
-        super.onBackPressed();
+//    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//
+//        startActivity(i);
+        moveTaskToBack(true);
+//        super.onBackPressed();
     }
 
     @Override
