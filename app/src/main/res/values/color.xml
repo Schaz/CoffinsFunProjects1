@@ -3,4 +3,7 @@
     <color name="primary">#FFFAFA</color>
     <color name="primary_pressed">#666666</color>
     <color name="ripple">#999999</color>
+    <color name="fab_colorNormal">#7F00FF</color>
+    <color name="fab_colorPressed">#000000</color>
+    <color name="fab_colorRipple">#BF5FFF</color>
 </resources>

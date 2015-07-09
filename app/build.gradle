@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.dell.myapplication"
-        minSdkVersion 9
+        minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -22,5 +22,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.melnykov:floatingactionbutton:1.3.0'
+    compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
+
 }
